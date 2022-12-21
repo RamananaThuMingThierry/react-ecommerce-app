@@ -1,0 +1,8 @@
+1. Créer un projet react    
+    -> npx create-react-app react-ecommerce-app
+
+. Package à installer
+    -> npm install bootstrap
+    -> npm instal react-router-dom
+    -> npm install axios
+    -> npm install sweetalert --save
