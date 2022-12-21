@@ -56,15 +56,15 @@ const Register = () =>{
                             <div className="card-body">
                                 <form onSubmit={RegisterSubmit}>
                                     <div className="form-group">
-                                        <input type="" placeholder="Pseudo" name="pseudo" onChange={handleInput} value={registerInput.pseudo} className="form-control" />
+                                        <input type="text" placeholder="Pseudo" name="pseudo" onChange={handleInput} value={registerInput.pseudo} className="form-control" />
                                         <span>{registerInput.error_list.pseudo}</span>
                                     </div>
                                     <div className="form-group">
-                                        <input type="" placeholder="E-mail" name="email" onChange={handleInput}  value={registerInput.email} className="form-control" />
+                                        <input type="text" placeholder="E-mail" name="email" onChange={handleInput}  value={registerInput.email} className="form-control" />
                                         <span>{registerInput.error_list.email}</span>
                                     </div>
                                     <div className="form-group">
-                                        <input type="" placeholder="Mot de passe" name="mdp" onChange={handleInput}  value={registerInput.mdp} className="form-control" />
+                                        <input type="password" placeholder="Mot de passe" name="mdp" onChange={handleInput}  value={registerInput.mdp} className="form-control" />
                                         <span>{registerInput.error_list.mdp}</span>
                                     </div>
                                     <div className="form-group">
