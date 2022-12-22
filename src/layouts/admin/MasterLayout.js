@@ -8,6 +8,7 @@ import {Route, Switch } from "react-router-dom";
 import Dashboard from "../../components/admin/Dashboard";
 import Profile from "../../components/admin/Profile";
 import ErrorPage from "../../components/ErrorPage";
+import Category from "../../components/admin/Category";
 
 class MasterLayout extends Component{
     render(){
@@ -22,6 +23,7 @@ class MasterLayout extends Component{
                                 <Switch>
                                     <Route path="/admin/dashboard" component={Dashboard} />
                                     <Route path="/admin/profile" component={Profile} />
+                                    <Route path="/admin/add-category" component={Category} />
                                     <Route component={ErrorPage}/>
                                 </Switch>
                             </div>

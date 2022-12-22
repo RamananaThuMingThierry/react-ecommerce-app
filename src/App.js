@@ -2,13 +2,12 @@ import axios from "axios";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import ErrorPage from "./components/ErrorPage";
 import Page403 from "./components/errors/Page403";
 import Page404 from "./components/errors/Page404";
 import Login from "./components/frontend/auth/Login";
 import Register from "./components/frontend/auth/Register";
 import Home from "./components/frontend/Home";
-import MasterLayout from "./layouts/admin/MasterLayout";
-
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
@@ -38,6 +37,7 @@ function App (){
             
             {/* <Route  path="/admin" name="Admin" render={() => <MasterLayout/>}/> */}
             <AdminPrivateRoute path="/admin" name="Admin"/>
+            <Route component={ErrorPage}/>
           </Switch>
       </div>
     );

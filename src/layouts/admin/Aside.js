@@ -26,6 +26,13 @@ const Aside = () =>{
                     Profile
                 </Link>
               </li>
+              
+              <li className="nav-item has-treeview">
+                <Link to="/admin/add-category" className="nav-link">
+                  <i className="nav-icon fas fa-folder"></i>
+                    Add Category
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
