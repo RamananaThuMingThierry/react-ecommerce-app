@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import Page403 from "./components/errors/Page403";
+import Page404 from "./components/errors/Page404";
 import Login from "./components/frontend/auth/Login";
 import Register from "./components/frontend/auth/Register";
 import Home from "./components/frontend/Home";
@@ -22,6 +24,9 @@ function App (){
       <div className="App">
           <Switch>
             <Route  exact path="/" name="Home" component={Home}/>
+
+            <Route  path="/403" component={Page403}/>
+            <Route  path="/404" component={Page404}/>
             
             <Route  path="/login" name="Login">
               { localStorage.getItem('auth_token') ? <Redirect to="/" /> : <Login/>}
