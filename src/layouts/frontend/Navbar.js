@@ -5,7 +5,7 @@ import swal from "sweetalert";
 
 const Navbar = () =>{
 
-    const history = useHistory;
+    const history = useHistory();
     
     const LogoutSubmit = (e) =>{
         e.preventDefault();
