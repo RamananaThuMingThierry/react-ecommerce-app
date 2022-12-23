@@ -33,6 +33,13 @@ const Aside = () =>{
                     Add Category
                 </Link>
               </li>
+              
+              <li className="nav-item has-treeview">
+                <Link to="/admin/view-category" className="nav-link">
+                  <i className="nav-icon fas fa-folder"></i>
+                    View Category
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
