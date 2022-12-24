@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import swal from 'sweetalert';
+import { useHistory } from "react-router-dom";
 
 const Category = () =>{
 
+    const history = useHistory();
+    
     const [categoryInput, setCategory] = useState({
         slug: '',
         name: '',
@@ -39,6 +42,7 @@ const Category = () =>{
             if(res.data.status === 200){
                 swal("Sucess", res.data.message, "success");
                 document.getElementById('CATEGORY_FORM').reset();
+                history.push("/admin/view-category");
             }else if(res.data.status === 400){
                 setCategory({...categoryInput, error_list: res.data.errors});
             }
