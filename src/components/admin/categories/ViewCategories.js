@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import swal from "sweetalert";
 
 const ViewCategory = () =>{
     
@@ -20,6 +21,37 @@ const ViewCategory = () =>{
 
     if(loading){
         return <h4>Loading category...</h4>
+    }
+
+    const deleteCategory = (e, id) =>{
+        const thisClicked = e.currentTarget;
+        thisClicked.innerText = "Deleting";
+
+        swal({
+            title: "Vous êtes sûr?",
+            text: "Voulez-vous vraiment supprimer ce catégorie?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                axios.delete(`api/delete-category/${id}`).then(res =>{
+                    if(res.data.status === 200){
+                        swal("Success", res.data.message, "success");
+                        thisClicked.closest("tr").remove();
+                    }else if(res.data.status === 404){
+                        swal("Error", res.data.message, "error");
+                        thisClicked.innerHTML = "<i class=\"fas fa-trash\"></i>";
+                    }
+                });
+            } else {
+              swal("La suppression a été annulé!");
+              thisClicked.innerHTML = "<i class=\"fas fa-trash\"></i>";
+            }
+          });
+
+       
     }
 
     return (
@@ -55,7 +87,7 @@ const ViewCategory = () =>{
                                                 <td className="text-center">
                                                     <Link to={`see-category/${item.id}`} className="btn btn-warning btn-sm mr-2"><i className="fas fa-eye"></i></Link>
                                                     <Link to={`edit-category/${item.id}`} className="btn btn-primary btn-sm mr-2"><i className="fa fa-edit"></i></Link>
-                                                    <button className="btn btn-danger btn-sm d-inline"><i className="fas fa-trash"></i></button>
+                                                    <button className="btn btn-danger btn-sm d-inline" onClick={(e) => deleteCategory(e, item.id)}><i className="fas fa-trash"></i></button>
                                                 </td>
 
                                             </tr>
