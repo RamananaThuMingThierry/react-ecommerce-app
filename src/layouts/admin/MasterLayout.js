@@ -8,9 +8,17 @@ import {Route, Switch } from "react-router-dom";
 import Dashboard from "../../components/admin/Dashboard";
 import Profile from "../../components/admin/Profile";
 import ErrorPage from "../../components/ErrorPage";
-import Category from "../../components/admin/categories/Category";
-import ViewCategory from "../../components/admin/categories/ViewCategories";
 import EditCategory from "../../components/admin/categories/EditCategory";
+import ViewProduct from "../../components/admin/product/ViewProduct";
+import EditProduct from "../../components/admin/product/EditProduct";
+import AddProduct from "../../components/admin/product/AddProduct";
+import Product from "../../components/admin/product/Product";
+import AddCategory from "../../components/admin/categories/AddCategory";
+import Category from "../../components/admin/categories/Categories";
+import Users from "../../components/admin/users/Users";
+import EditUsers from "../../components/admin/users/EditUsers";
+import ViewUsers from "../../components/admin/users/ViewUsers";
+import ViewCategory from "../../components/admin/categories/ViewCategory";
 
 class MasterLayout extends Component{
     render(){
@@ -25,9 +33,24 @@ class MasterLayout extends Component{
                                 <Switch>
                                     <Route exact path="/admin/dashboard" component={Dashboard} />
                                     <Route exact path="/admin/profile" component={Profile} />
-                                    <Route exact path="/admin/add-category" component={Category} />
-                                    <Route exact path="/admin/view-category" component={ViewCategory} />
+                                    {/* Catégories */}
+                                    <Route exact path="/admin/category" component={Category} />
+                                    <Route exact path="/admin/add-category" component={AddCategory} />
+                                    <Route exact path="/admin/view-category/:id" component={ViewCategory} />
                                     <Route exact path="/admin/edit-category/:id" component={EditCategory} />
+
+                                    {/* Produits */}
+                                    <Route exact path="/admin/product" component={Product} />
+                                    <Route exact path="/admin/add-product" component={AddProduct} />
+                                    <Route exact path="/admin/view-product/:id" component={ViewProduct} />
+                                    <Route exact path="/admin/edit-product/:id" component={EditProduct} />
+
+                                    {/* Users */}
+                                    <Route exact path="/admin/users" component={Users} />
+                                    <Route exact path="/admin/view-users/:id" component={ViewUsers} />
+                                    <Route exact path="/admin/edit-users/:id" component={EditUsers} />
+
+                                    {/* Page d'erreurs */}
                                     <Route component={ErrorPage}/>
                                 </Switch>
                             </div>

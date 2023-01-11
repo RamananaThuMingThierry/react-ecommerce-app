@@ -3,7 +3,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import swal from "sweetalert";
 
-const ViewCategory = () =>{
+const Category = () =>{
     
     const [loading, setLoading] = useState(true);
     const [categoryList, setCategoryList] = useState([]);
@@ -103,4 +103,4 @@ const ViewCategory = () =>{
     );
 }
 
-export default ViewCategory;
+export default Category;

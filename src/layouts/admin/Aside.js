@@ -13,6 +13,8 @@ const Aside = () =>{
     
           <nav className="mt-2">
             <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              
+              {/* Dashboard */}
               <li className="nav-item has-treeview menu-open">
                 <Link to="/admin/dashboard" className="nav-link active">
                   <i className="nav-icon fas fa-tachometer-alt"></i>
@@ -20,6 +22,7 @@ const Aside = () =>{
                 </Link>
               </li>
               
+              {/* Profile */}
               <li className="nav-item has-treeview">
                 <Link to="/admin/profile" className="nav-link">
                   <i className="nav-icon fas fa-folder"></i>
@@ -27,17 +30,27 @@ const Aside = () =>{
                 </Link>
               </li>
               
+              {/* Category */}
               <li className="nav-item has-treeview">
-                <Link to="/admin/add-category" className="nav-link">
+                <Link to="/admin/category" className="nav-link">
                   <i className="nav-icon fas fa-folder"></i>
-                    Add Category
+                   Category
                 </Link>
               </li>
               
+              {/* Product */}
               <li className="nav-item has-treeview">
-                <Link to="/admin/view-category" className="nav-link">
+                <Link to="/admin/product" className="nav-link">
                   <i className="nav-icon fas fa-folder"></i>
-                    View Category
+                   Product
+                </Link>
+              </li>
+              
+              {/* Users */}
+              <li className="nav-item has-treeview">
+                <Link to="/admin/users" className="nav-link">
+                  <i className="nav-icon fas fa-folder"></i>
+                   Users
                 </Link>
               </li>
             </ul>

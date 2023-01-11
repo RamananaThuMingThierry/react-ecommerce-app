@@ -4,7 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import { useHistory } from "react-router-dom";
 
-const Category = () =>{
+const AddCategory = () =>{
 
     const history = useHistory();
     
@@ -42,8 +42,9 @@ const Category = () =>{
             if(res.data.status === 200){
                 swal("Sucess", res.data.message, "success");
                 document.getElementById('CATEGORY_FORM').reset();
-                history.push("/admin/view-category");
+                history.push("/admin/category");
             }else if(res.data.status === 400){
+                swal("Warning", "Veuillez remplir tous les champs!","warning");
                 setCategory({...categoryInput, error_list: res.data.errors});
             }
         });
@@ -76,6 +77,7 @@ const Category = () =>{
                         
                         <div className="form-group mb-3">
                             <textarea name="description" placeholder="Description" onChange={handleInput} value={categoryInput.description} className="form-control"></textarea>
+                            <span className="text-danger">{categoryInput.error_list.description}</span>
                         </div>
                         
                         <div className="form-group mb-3">
@@ -108,4 +110,4 @@ const Category = () =>{
     );
 }
 
-export default Category;
+export default AddCategory;
