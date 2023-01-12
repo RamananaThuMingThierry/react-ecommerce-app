@@ -52,6 +52,9 @@ const AddProduct = () =>{
     }
 
     const SumbitProduct = (e) =>{
+
+        
+
         e.preventDefault();
 
         const formData = new FormData();
@@ -75,11 +78,11 @@ const AddProduct = () =>{
         formData.append('status', productInput.status);
 
         axios.post(`api/store-product`, formData).then(res =>{
-            
+
             axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';   
 
             if(res.data.status === 200){
-                
+                console.log("réussi");
                 swal("Success", res.data.message, "success");
                 setProduct({...productInput, 
                     id_category: '',
@@ -105,7 +108,7 @@ const AddProduct = () =>{
             }
             
         });
-
+        console.log("Il n'y a rien");
     }
 
     return (

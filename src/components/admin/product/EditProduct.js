@@ -2,124 +2,120 @@ import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import swal from 'sweetalert';
+import { useHistory } from "react-router-dom";
 
 const EditProduct = (props) =>{
 
+    const history = useHistory();
     const [categoryList, setCategoryList] = useState([]);
-    
-    // const [picture, setPicture] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [picture, setPicture] = useState([]);
 
     const [errors, setErrorsList] = useState([]);
 
-    // const [product, setProduct] = useState({
-    //     id_category: '',
-    //     slug: '',
-    //     name: '',
-    //     description: '',
+    const [product, setProduct] = useState({
+        id_category: '',
+        slug: '',
+        name: '',
+        description: '',
 
-    //     meta_title: '',
-    //     meta_keyword: '',
-    //     meta_description: '',
+        meta_title: '',
+        meta_keyword: '',
+        meta_description: '',
 
-    //     featured: '',
-    //     popular: '',
-    //     selling_price: '',
-    //     original_price: '',
-    //     quantity: '',
+        featured: '',
+        popular: '',
+        selling_price: '',
+        original_price: '',
+        quantity: '',
         
-    //     brand: '',
-    //     status: ''
-    // });
-
-    const [product, setProduct] = useState([]);
+        brand: '',
+        status: ''
+    });
 
     useEffect(() =>{
 
-        const id = props.match.params.id;
-
-        axios.get(`api/see-product/${id}`).then(res =>{
+        axios.get(`api/all-category`).then(res =>{
             if(res.data.status === 200){
-                setProduct(res.data.product);
+                setCategoryList(res.data.category);
             }
         });
 
-    }, [props.match.params.id]);
+        const id = props.match.params.id;
+        axios.get(`api/retreive-product/${id}`).then(res =>{
+            if(res.data.status === 200){
+                setProduct(res.data.product);
+            }else if(res.data.status === 400){
+                swal("Error", res.data.message, "error");
+                history.push('/admin/product');
+            }
+            setLoading(false);
+        });
 
+    }, [props.match.params.id, history]);
 
     const handleInput = (e) =>{
         e.persist();
-
-     //   setProduct({...product, [e.target.name]: e.target.value});
+        setProduct({...product, [e.target.name]: e.target.value});
     }
 
     const handleImage = e =>{
         e.persist();
-     //   setPicture({ image: e.target.files[0] });
+        setPicture({ image: e.target.files[0] });
     }
 
-    // const SumbitProduct = (e) =>{
-    //     e.preventDefault();
+    const SubmitUpdateProduct = (e) =>{
+        e.preventDefault();
 
-    //     const formData = new FormData();
+        const id_product = props.match.params.id;
+        const formData = new FormData();
 
-    //     formData.append('image', picture.image);
-    //     formData.append('id_category', product.id_category);
-    //     formData.append('slug', product.slug);
-    //     formData.append('name', product.name);
-    //     formData.append('description', product.description);
+        formData.append('image', picture.image);
+        formData.append('id_category', product.id_category);
+        formData.append('slug', product.slug);
+        formData.append('name', product.name);
+        formData.append('description', product.description);
 
-    //     formData.append('meta_title', product.meta_title);
-    //     formData.append('meta_keyword', product.meta_keyword);
-    //     formData.append('meta_description', product.meta_description);
+        formData.append('meta_title', product.meta_title);
+        formData.append('meta_keyword', product.meta_keyword);
+        formData.append('meta_description', product.meta_description);
 
-    //     formData.append('brand', product.brand);
-    //     formData.append('quantity', product.quantity);
-    //     formData.append('selling_price', product.selling_price);
-    //     formData.append('original_price', product.original_price);
-    //     formData.append('popular', product.popular);
-    //     formData.append('featured', product.featured);
-    //     formData.append('status', product.status);
+        formData.append('brand', product.brand);
+        formData.append('quantity', product.quantity);
+        formData.append('selling_price', product.selling_price);
+        formData.append('original_price', product.original_price);
+        formData.append('popular', product.popular);
+        formData.append('featured', product.featured);
+        formData.append('status', product.status);
 
-    //     axios.post(`api/store-product`, formData).then(res =>{
+        axios.put(`api/update-product/${id_product}`, formData).then(res =>{
             
-    //         axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';   
+            axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';   
 
-    //         if(res.data.status === 200){
-                
-    //             swal("Success", res.data.message, "success");
-    //             setProduct({...product, 
-    //                 id_category: '',
-    //                 slug: '',
-    //                 name: '',
-    //                 description: '',
-    //                 meta_title: '',
-    //                 meta_keyword: '',
-    //                 meta_description: '',
-    //                 image:'',
-    //                 featured: '',
-    //                 popular: '',
-    //                 selling_price: '',
-    //                 original_price: '',
-    //                 quantity: '',
-    //                 brand: '',
-    //                 status: ''
-    //             });
-
-    //         }else if(res.data.status === 422){
-    //             swal("All fiels are mandetory", "", "error");
-    //             setErrorsList(res.data.errors);
-    //         }
+            if(res.data.status === 200){
+                swal("Success", res.data.message, "success");
+                history.push('admin/product');
+            }else if(res.data.status === 422){
+                swal("All fiels are mandetory", "", "error");
+                setErrorsList(res.data.errors);
+            }
             
-    //     });
+        });
 
-    // }
+    }
+
+    if(loading){
+        return (
+            <h1>Update Product ...</h1>
+        );
+    }
 
     return (
         <div className="container-fluid pt-2">
         <div className="elevation-1 mb-2 p-2 bg-white">
             <h3>Edit Product</h3>
         </div>
-        <form encType="multipart/form-data"> 
+        <form onSubmit={SubmitUpdateProduct} encType="multipart/form-data"> 
             <nav>
                 <div className="nav elevation-1 bg-white nav-tabs" id="nav-tab" role="tablist">
                     <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
