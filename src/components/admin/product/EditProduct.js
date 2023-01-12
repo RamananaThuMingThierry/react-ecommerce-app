@@ -10,7 +10,6 @@ const EditProduct = (props) =>{
     const [categoryList, setCategoryList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState([]);
-
     const [errors, setErrorsList] = useState([]);
 
     const [product, setProduct] = useState({
@@ -98,6 +97,9 @@ const EditProduct = (props) =>{
             }else if(res.data.status === 422){
                 swal("All fiels are mandetory", "", "error");
                 setErrorsList(res.data.errors);
+            }else if(res.data.status === 404){
+                swal("Error", res.data.message, "error");
+                history.push("admin/product");
             }
             
         });

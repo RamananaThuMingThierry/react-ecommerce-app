@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 import swal from 'sweetalert';
+import axios from "axios";
 
 const AddProduct = () =>{
 
@@ -53,8 +53,6 @@ const AddProduct = () =>{
 
     const SumbitProduct = (e) =>{
 
-        
-
         e.preventDefault();
 
         const formData = new FormData();
@@ -78,11 +76,8 @@ const AddProduct = () =>{
         formData.append('status', productInput.status);
 
         axios.post(`api/store-product`, formData).then(res =>{
-
             axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';   
-
             if(res.data.status === 200){
-                console.log("réussi");
                 swal("Success", res.data.message, "success");
                 setProduct({...productInput, 
                     id_category: '',
@@ -108,7 +103,6 @@ const AddProduct = () =>{
             }
             
         });
-        console.log("Il n'y a rien");
     }
 
     return (
