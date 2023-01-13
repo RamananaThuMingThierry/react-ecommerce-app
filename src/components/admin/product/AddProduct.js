@@ -76,7 +76,9 @@ const AddProduct = () =>{
         formData.append('status', productInput.status);
 
         axios.post(`api/store-product`, formData).then(res =>{
+            
             axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';   
+            
             if(res.data.status === 200){
                 swal("Success", res.data.message, "success");
                 setProduct({...productInput, 

@@ -8,6 +8,7 @@ const AddCategory = () =>{
 
     const history = useHistory();
     
+    const [allcheckbox, setCheckbox] = useState([]);
     const [categoryInput, setCategory] = useState({
         slug: '',
         name: '',
@@ -25,6 +26,11 @@ const AddCategory = () =>{
         setCategory({...categoryInput, [e.target.name]: e.target.value});
     }
 
+    const handleCheckbox = e =>{
+        e.persist();
+        setCheckbox({...allcheckbox, [e.target.name]: e.target.checked});
+    }
+
     const SubmitAddCategory = (e) =>{
         e.preventDefault();
 
@@ -32,7 +38,7 @@ const AddCategory = () =>{
             slug:categoryInput.slug,
             name: categoryInput.name,
             description: categoryInput.description,
-            status: categoryInput.status,
+            status: allcheckbox.status ? '1' : '0',
             meta_title: categoryInput.meta_title,
             meta_keyword: categoryInput.meta_keyword,
             meta_description: categoryInput.meta_description
@@ -82,7 +88,7 @@ const AddCategory = () =>{
                         
                         <div className="form-group mb-3">
                             <label>status </label>
-                            <input type="checkbox" name="status" onChange={handleInput}/>
+                            <input type="checkbox" name="status" onChange={handleCheckbox} defaultChecked={allcheckbox.status === 1 ? true : false}/>
                             Status 0: show / 1: hidden
                         </div>
 

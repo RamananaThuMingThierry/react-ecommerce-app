@@ -11,10 +11,16 @@ const EditCategory = (props) =>{
     const [loading, setLoading] = useState(true);
     const [categoryInput, setCategory] = useState([]);
     const [errors, setErrors] = useState([]);
+    const [allcheckbox, setCheckbox] = useState([]);
 
     const handleInput = e =>{
         e.persist();
         setCategory({...categoryInput, [e.target.name]: e.target.value});
+    }
+
+    const handleCheckbox = e =>{
+        e.persist();
+        setCheckbox({...allcheckbox, [e.target.name]: e.target.checked});
     }
 
     useEffect(() =>{
@@ -24,16 +30,15 @@ const EditCategory = (props) =>{
         axios.get(`api/edit-category/${id_category}`).then(res =>{
             if(res.data.status === 200){
                 setCategory(res.data.category);
+                setCheckbox(res.data.category);
             }else if(res.data.status === 404){
                 swal("Error", res.data.message, "error");
-                history.push("/admin/view-category");
+                history.push("/admin/category");
             }
             setLoading(false);
         });
 
     }, [props.match.params.id, history]);
-
-    const status = categoryInput.status;
 
     if(loading){
         return <h4>Loading category...</h4>
@@ -44,12 +49,20 @@ const EditCategory = (props) =>{
 
         const id_category = props.match.params.id;
 
-        const data = categoryInput;
+           const data = {
+            slug:categoryInput.slug,
+            name: categoryInput.name,
+            description: categoryInput.description,
+            status: allcheckbox.status ? '1' : '0',
+            meta_title: categoryInput.meta_title,
+            meta_keyword: categoryInput.meta_keyword,
+            meta_description: categoryInput.meta_description
+        };
 
         axios.put(`api/update-category/${id_category}`, data).then(res =>{
             if(res.data.status === 200){
                 swal("Success", res.data.message, "success");
-                history.push("/admin/view-category");
+                history.push("/admin/category");
                 setErrors([]);
             }else if(res.data.status === 422){
                 
@@ -68,7 +81,7 @@ const EditCategory = (props) =>{
             <div className="elevation-1 mb-2 p-2 bg-white">
                 <h3>
                     Edit Category
-                    <Link to="/admin/view-category" className="btn btn-danger btn-sm float-end"><i className="fas fa-angle-left"></i></Link>
+                    <Link to="/admin/category" className="btn btn-danger btn-sm float-end"><i className="fas fa-angle-left"></i></Link>
                 </h3>
             </div>
             <form onSubmit={updateCategory}>
@@ -97,7 +110,7 @@ const EditCategory = (props) =>{
                         
                         <div className="form-group mb-3">
                             <label>status </label>
-                            <input type="checkbox" name="status" defaultChecked={categoryInput.status === 1 ? true : false} onChange={handleInput}/>
+                            <input type="checkbox" name="status" onChange={handleCheckbox} defaultChecked={allcheckbox.status === 1 ? true : false}/>
                             Status 0: show / 1: hidden
                         </div>
 

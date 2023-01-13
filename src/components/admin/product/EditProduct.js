@@ -11,26 +11,9 @@ const EditProduct = (props) =>{
     const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState([]);
     const [errors, setErrorsList] = useState([]);
+    const [product, setProduct] = useState([]);
+    const [allcheckbox, setCheckbox] = useState([]);
 
-    const [product, setProduct] = useState({
-        id_category: '',
-        slug: '',
-        name: '',
-        description: '',
-
-        meta_title: '',
-        meta_keyword: '',
-        meta_description: '',
-
-        featured: '',
-        popular: '',
-        selling_price: '',
-        original_price: '',
-        quantity: '',
-        
-        brand: '',
-        status: ''
-    });
 
     useEffect(() =>{
 
@@ -44,6 +27,7 @@ const EditProduct = (props) =>{
         axios.get(`api/retreive-product/${id}`).then(res =>{
             if(res.data.status === 200){
                 setProduct(res.data.product);
+                setCheckbox(res.data.product);
             }else if(res.data.status === 400){
                 swal("Error", res.data.message, "error");
                 history.push('/admin/product');
@@ -56,6 +40,11 @@ const EditProduct = (props) =>{
     const handleInput = (e) =>{
         e.persist();
         setProduct({...product, [e.target.name]: e.target.value});
+    }
+
+    const handleCheckbox = e =>{
+        e.persist();
+        setCheckbox({...allcheckbox, [e.target.name]: e.target.checked});
     }
 
     const handleImage = e =>{
@@ -83,23 +72,23 @@ const EditProduct = (props) =>{
         formData.append('quantity', product.quantity);
         formData.append('selling_price', product.selling_price);
         formData.append('original_price', product.original_price);
-        formData.append('popular', product.popular);
-        formData.append('featured', product.featured);
-        formData.append('status', product.status);
+        formData.append('popular', allcheckbox.popular ? '1' : '0');
+        formData.append('featured', allcheckbox.featured ? '1' : '0');
+        formData.append('status', allcheckbox.status ? '1' : '0');
 
-        axios.put(`api/update-product/${id_product}`, formData).then(res =>{
+        axios.post(`api/update-product/${id_product}`, formData).then(res =>{
             
             axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';   
 
             if(res.data.status === 200){
                 swal("Success", res.data.message, "success");
-                history.push('admin/product');
+                history.push('/admin/product');
             }else if(res.data.status === 422){
                 swal("All fiels are mandetory", "", "error");
                 setErrorsList(res.data.errors);
             }else if(res.data.status === 404){
                 swal("Error", res.data.message, "error");
-                history.push("admin/product");
+                history.push("/admin/product");
             }
             
         });
@@ -201,19 +190,20 @@ const EditProduct = (props) =>{
                         <div className="col-md-8 form-group mb-3">
                             <label>Image</label>
                             <input type="file" name="image" onChange={handleImage} className="form-control"/>
+                            <img src={`http://localhost:8000/${product.image}`} width="50px"/>
                             <span className="text-danger">{errors.image}</span>
                         </div>
                         <div className="col-md-4 form-group mb-3">
                             <label>Featured (checked=shown)</label>
-                            <input type="checkbox" name="featured" placeholder="Featured" onChange={handleInput} value={product.featured} className="w-50 h-50"/>
+                            <input type="checkbox" name="featured" placeholder="Featured" onChange={handleCheckbox} defaultChecked={allcheckbox.featured === 1 ? true : false} className="w-50 h-50"/>
                         </div>
                         <div className="col-md-4 form-group mb-3">
                             <label>Popular (checked=shown)</label>
-                            <input type="checkbox" name="popular" placeholder="popular" onChange={handleInput} value={product.popular} className="w-50 h-50"/>
+                            <input type="checkbox" name="popular" placeholder="popular" onChange={handleCheckbox} defaultChecked={allcheckbox.popular === 1 ? true : false} className="w-50 h-50"/>
                             </div>
                         <div className="col-md-4 form-group mb-3">
                             <label>Status (checked=hidden)</label>
-                            <input type="checkbox" name="status" placeholder="status" onChange={handleInput} value={product.status} className="w-50 h-50"/>
+                            <input type="checkbox" name="status" placeholder="status" onChange={handleCheckbox} defaultChecked={allcheckbox.status === 1 ? true : false} className="w-50 h-50"/>
                         </div>
                     </div>
                 </div>
