@@ -10,6 +10,7 @@ import Login from "../../components/frontend/auth/Login";
 import Register from "../../components/frontend/auth/Register";
 import CollectionVeiwCategory from "../../components/frontend/collection/CollectionViewCategory";
 import CollectionViewProduct from "../../components/frontend/collection/CollectionViewProduct.js";
+import CollectionProductDetails from "../../components/frontend/collection/CollectionProductDetails";
 class FrontendLayout extends Component{
     render(){
         return (
@@ -22,6 +23,7 @@ class FrontendLayout extends Component{
                         <Route  exact path="/contact" name="Contact" component={Contact}/>
                         <Route  exact path="/collection" name="collection" component={CollectionVeiwCategory}/>
                         <Route  exact path="/collections/:slug" name="collection Product" component={CollectionViewProduct}/>
+                        <Route  exact path="/collections/:category/:product" name="collection Product Details" component={CollectionProductDetails}/>
                         <Route  path="/403" component={Page403}/>
                         <Route  path="/404" component={Page404}/>
                         <Route  path="/login" name="Login">

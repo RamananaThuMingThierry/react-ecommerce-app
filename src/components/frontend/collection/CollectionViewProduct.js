@@ -49,11 +49,11 @@ const CollectionViewProduct = (props) =>{
                 return (
                     <div className="col-md-4" key={idx}>
                         <div className="card">
-                            <Link to="">
+                            <Link to={`/collections/${item.category.slug}/${item.slug}`}>
                                 <img src={`http://localhost:8000/${item.image}`} className="w-100" alt="image"/>
                             </Link>
                             <div className="card-body">
-                                <Link to={`collections/${item.slug}`}>
+                                <Link to={`/collections/${item.category.slug}/${item.slug}`}>
                                     <h5>{item.name}</h5>
                                 </Link>
                             </div>

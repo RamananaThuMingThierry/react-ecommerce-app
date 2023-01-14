@@ -6,6 +6,7 @@ const CollectionVeiwCategory = () =>{
 
     const [Category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
+    const category_count = Category.length;
 
     useEffect(() =>{
         
@@ -30,6 +31,31 @@ const CollectionVeiwCategory = () =>{
         return (
             <h1>Collection ...</h1>
         );
+    }else{
+        var listcategory = "";
+        if(category_count){
+            listcategory = Category.map((item, idx) => {
+                return (
+                    <div className="col-md-4" key={idx}>
+                        <div className="card">
+                            <Link to="">
+                                <img src="" width="50px" alt="image"/>
+                            </Link>
+                            <div className="card-body">
+                                <Link to={`collections/${item.slug}`}>
+                                    <h5>{item.name}</h5>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>  
+                )
+            })
+        }else{
+            listcategory = 
+            <div className="col-md-12">
+                <h4>No category</h4>
+            </div>
+        }
     }
 
     return (
@@ -43,22 +69,7 @@ const CollectionVeiwCategory = () =>{
                 </div>
                 
                 {
-                    Category.map((item, idx) => {
-                        return (
-                            <div className="col-md-4" key={idx}>
-                                <div className="card">
-                                    <Link to="">
-                                        <img src="" width="50px" alt="image"/>
-                                    </Link>
-                                    <div className="card-body">
-                                        <Link to={`collections/${item.slug}`}>
-                                            <h5>{item.name}</h5>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>  
-                        )
-                    })
+                  listcategory
                 }
                 
             </div>
