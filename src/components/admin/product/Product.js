@@ -29,7 +29,7 @@ const Product = () =>{
     const deleteProduct = (e, id) =>{
         
         const thisClicked = e.currentTarget;
-        thisClicked.innerText = "Deleting";
+        thisClicked.innerText = "Suppression";
 
         swal({
             title: "Vous êtes sûr?",
@@ -73,23 +73,31 @@ const Product = () =>{
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Image</th>
                                 <th>Category Name</th>
                                 <th>Product Name</th>
                                 <th>Selling price</th>
-                                <th>Image</th>
+                                <th>Status</th>
                                 <th className="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 productlist.map( (item, i) =>{
+                                    var var_status = "";
+                                    if(item.status == '0'){
+                                        var_status = "Shown";
+                                    }else{
+                                        var_status = "Hidden";
+                                    }
                                     return (
                                         <tr key={i}>
                                             <td>{item.id}</td>
+                                            <td><img src={`http://localhost:8000/${item.image}`} width="50px" alt="image"/></td>
                                             <td>{item.category.name}</td>
                                             <td>{item.name}</td>
                                             <td>{item.selling_price}</td>
-                                            <td><img src={`http://localhost:8000/${item.image}`} width="50px" alt="image"/></td>
+                                            <td>{var_status}</td>
                                             <td>
                                                 <Link to={`view-product/${item.id}`} className="btn btn-warning btn-sm mr-2"><i className="fas fa-eye"></i></Link>
                                                 <Link to={`edit-product/${item.id}`} className="btn btn-primary btn-sm mr-2"><i className="fa fa-edit"></i></Link>

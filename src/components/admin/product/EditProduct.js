@@ -200,7 +200,7 @@ const EditProduct = (props) =>{
                         <div className="col-md-4 form-group mb-3">
                             <label>Popular (checked=shown)</label>
                             <input type="checkbox" name="popular" placeholder="popular" onChange={handleCheckbox} defaultChecked={allcheckbox.popular === 1 ? true : false} className="w-50 h-50"/>
-                            </div>
+                        </div>
                         <div className="col-md-4 form-group mb-3">
                             <label>Status (checked=hidden)</label>
                             <input type="checkbox" name="status" placeholder="status" onChange={handleCheckbox} defaultChecked={allcheckbox.status === 1 ? true : false} className="w-50 h-50"/>
