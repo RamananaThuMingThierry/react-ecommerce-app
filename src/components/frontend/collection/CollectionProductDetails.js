@@ -8,6 +8,7 @@ const CollectionProductDetails = (props) =>{
     const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [product, setProduct] = useState([]);
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() =>{
         let isMounted = true;
@@ -35,10 +36,66 @@ const CollectionProductDetails = (props) =>{
         }
     }, [props.match.params.category, props.match.params.product, history]);
 
+    const handlDecrement = () =>{
+        if(quantity > 1){
+            setQuantity(preventCount => preventCount - 1);
+        }
+    }
+
+    const handleIncrement = () =>{
+        setQuantity(preventCount => preventCount + 1);
+    }
+
+    const SubmitAddToCart = e =>{
+        e.preventDefault();
+
+        const data = {
+            product_id : product.id,
+            product_quantity : quantity
+        };
+
+        axios.post(`api/add-to-cart`, data).then(res =>{
+            if(res.data.status === 201){
+                swal("Success", res.data.message, "successs");
+            }else if(res.data.status === 409){
+                swal("Warning", res.data.message, "warning");
+            }else if(res.data.status === 404){
+                swal("Warning", res.data.message, "warning");
+            }else if(res.data.status === 401){
+                swal("Error", res.data.message, "error");
+            }
+        });
+    }
+
     if(loading){
         return (
             <h3>Collection Product Details...</h3>
         )
+    }else{
+        var avail_stock = "";
+        if(product.quantity > 0){
+            avail_stock =       
+            <div>
+                <label className="btn-sm btn-success px-4 mt-2">In Stock</label>
+                <div className="row">
+                    <div className="col-md-3 mt-3">
+                        <div className="input-group">
+                            <button className="input-group-text" type="button" onClick={handlDecrement}>-</button>
+                            <input type="text" value={quantity} className="form-control text-center"/>
+                            <button className="input-group-text" type="button" onClick={handleIncrement}>+</button>
+                        </div>
+                    </div>
+                    <div className="col-md-3 mt-3">
+                        <button type="button" className="btn btn-primary w-100" onClick={SubmitAddToCart}>Add Cart</button>
+                    </div>
+                </div>
+            </div>
+        }else{
+            avail_stock = 
+            <div>
+                <label className="btn sm btn-success px-4 mt-2">Out of Stock</label>
+            </div>
+        }
     }
 
     return (
@@ -46,7 +103,7 @@ const CollectionProductDetails = (props) =>{
             <div>
                 <div className="py-3 bg-warning">
                     <div className="container">
-                        <h5>Collection / {product.category.name} / Product</h5>
+                        <h5>Collection / {product.category.name} / {product.name}</h5>
                     </div>
                 </div>
 
@@ -54,7 +111,7 @@ const CollectionProductDetails = (props) =>{
                     <div className="container">
                         <div className="row">
                             <div className="col-md-4 border-end">
-                                <img src="" alt="" className="w-100"/>
+                                <img src={`http://localhost:8000/${product.image}`} alt={product.name} className="w-100"/>
                             </div>
 
                             <div className="col-md-8">
@@ -62,20 +119,13 @@ const CollectionProductDetails = (props) =>{
                                     {product.name}
                                     <span className="float-end badge btn-sm btn-danger badge-pil">Brand</span>
                                 </h4>
-                                <p>Product description</p>
+                                <p>{product.description}</p>
                                 <h4 className="mb-1">
-                                    RS: 6546
-                                    <s className="ms-2"> RS: 6546</s>
+                                    RS: {product.selling_price}
+                                    <s className="ms-2"> {product.original_price} Ar</s>
                                 </h4>
-                                <div>
-                                    <label className="btn-sm btn-success px-4 mt-2">In Stock</label>
-                                    <div className="row">
-                                        <div className="col-md-3 mt-3">
-                                            <div className="input-group"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
+                                {avail_stock}
+                                <button type="button" className="btn btn-danger mt-3">Add to whishlist</button>
                             </div>
                         </div>
                     </div>
