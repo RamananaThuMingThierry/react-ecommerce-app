@@ -12,6 +12,7 @@ import CollectionVeiwCategory from "../../components/frontend/collection/Collect
 import CollectionViewProduct from "../../components/frontend/collection/CollectionViewProduct.js";
 import CollectionProductDetails from "../../components/frontend/collection/CollectionProductDetails";
 import Cart from "../../components/frontend/Cart";
+import Checkout from "../../components/frontend/Checkout";
 class FrontendLayout extends Component{
     render(){
         return (
@@ -24,6 +25,7 @@ class FrontendLayout extends Component{
                         <Route  exact path="/contact" name="Contact" component={Contact}/>
                         <Route  exact path="/collection" name="collection" component={CollectionVeiwCategory}/>
                         <Route  exact path="/cart" name="cart" component={Cart}/>
+                        <Route  exact path="/checkout" name="checkout" component={Checkout}/>
                         <Route  exact path="/collections/:slug" name="collection Product" component={CollectionViewProduct}/>
                         <Route  exact path="/collections/:category/:product" name="collection Product Details" component={CollectionProductDetails}/>
                         <Route  path="/403" component={Page403}/>

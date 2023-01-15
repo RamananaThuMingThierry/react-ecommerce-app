@@ -57,7 +57,7 @@ const Cart = () =>{
     function updateCartQuantity(card_id, scope){
         axios.put(`api/cart-updatequantity/${card_id}/${scope}`).then(res => {
             if(res.data.status === 200){
-                swal("Success", res.data.message, "success");
+               // swal("Success", res.data.message, "success");
             }
         });
     }
