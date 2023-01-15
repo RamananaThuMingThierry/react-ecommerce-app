@@ -62,6 +62,9 @@ const Navbar = () =>{
                         <li className="nav-item">
                             <Link to="/contact" className="nav-link">Contact</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/cart" className="nav-link">Cart</Link>
+                        </li>
                         {AuthButtons}
                     </ul>
                 </div>
