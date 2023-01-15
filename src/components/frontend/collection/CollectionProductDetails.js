@@ -56,7 +56,7 @@ const CollectionProductDetails = (props) =>{
 
         axios.post(`api/add-to-cart`, data).then(res =>{
             if(res.data.status === 201){
-                swal("Success", res.data.message, "successs");
+                swal("Success", res.data.message, "success");
             }else if(res.data.status === 409){
                 swal("Warning", res.data.message, "warning");
             }else if(res.data.status === 404){
