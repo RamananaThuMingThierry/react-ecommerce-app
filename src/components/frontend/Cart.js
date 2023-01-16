@@ -100,49 +100,63 @@ const Cart = () =>{
 
         if(cart.length > 0){
             cart_HTML = 
-            <div className="table-responsive">
-            <table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
-                        <th>Romove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        cart.map((item, idx) =>{
-                            
-                            total_price += item.product.selling_price * item.product_quantity;
+            <div>
+                <div className="table-responsive">
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                                <th>Romove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                cart.map((item, idx) =>{
+                                    
+                                    total_price += item.product.selling_price * item.product_quantity;
 
-                            return (
-                                <tr key={idx}>
-                                    <td width="10%">
-                                        <img src={`http://localhost:8000/${item.product.image}`} alt="" width="50px" height="50px"/>
-                                    </td>
-                                    <td>{item.product.name}</td>
-                                    <td width="15%" className="text-center">{item.product.selling_price}</td>
-                                    <td width="15%">
-                                        <div className="input-group">
-                                            <button type="button" className="input-group-text" onClick={() => handlDecrement(item.id)}>-</button>
-                                            <div className="form-control text-center">{item.product_quantity}</div>
-                                            <button type="button" className="input-group-text" onClick={() => handleIncrement(item.id)}>+</button>
-                                        </div>
-                                    </td>
-                                    <td width="15%" className="text-center">{item.product.selling_price * item.product_quantity}</td>
-                                    <td width="10%">
-                                        <button type="button" className="btn btn-danger btn-sm" onClick={(e) => deleteCartItem(e, item.id)}>Remove</button>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
+                                    return (
+                                        <tr key={idx}>
+                                            <td width="10%">
+                                                <img src={`http://localhost:8000/${item.product.image}`} alt="" width="50px" height="50px"/>
+                                            </td>
+                                            <td>{item.product.name}</td>
+                                            <td width="15%" className="text-center">{item.product.selling_price}</td>
+                                            <td width="15%">
+                                                <div className="input-group">
+                                                    <button type="button" className="input-group-text" onClick={() => handlDecrement(item.id)}>-</button>
+                                                    <div className="form-control text-center">{item.product_quantity}</div>
+                                                    <button type="button" className="input-group-text" onClick={() => handleIncrement(item.id)}>+</button>
+                                                </div>
+                                            </td>
+                                            <td width="15%" className="text-center">{item.product.selling_price * item.product_quantity}</td>
+                                            <td width="10%">
+                                                <button type="button" className="btn btn-danger btn-sm" onClick={(e) => deleteCartItem(e, item.id)}>Remove</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div className="row">
+                    <div className="row">
+                        <div className="col-md-8"></div>
+                        <div className="col-md-4">
+                            <div className="card card-body mt-3">
+                                <h4>Sub Total : <span className="float-edn">{total_price}</span></h4>
+                                <h4>Grand Total : <span className="float-edn">{total_price}</span></h4>
+                                <hr color="black"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         
         }else{
             cart_HTML = 

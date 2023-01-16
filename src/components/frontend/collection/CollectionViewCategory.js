@@ -35,19 +35,25 @@ const CollectionVeiwCategory = () =>{
         var listcategory = "";
         if(category_count){
             listcategory = Category.map((item, idx) => {
-                return (
-                    <div className="col-md-4" key={idx}>
-                        <div className="card">
-                            <Link to="">
-                                <img src="" width="50px" alt="image"/>
-                            </Link>
-                            <div className="card-body">
-                                <Link to={`collections/${item.slug}`}>
-                                    <h5>{item.name}</h5>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>  
+                return ( 
+                    <div className="box" key={idx}>
+                       <div className="image">
+                           <img src="" alt=""/>
+                           <Link to={`collections/${item.slug}`} className="fas fa-heart"></Link>
+                       </div>
+                       <div className="content">
+                           <div className="stars">
+                               <i className="fas fa-star"></i>
+                               <i className="fas fa-star"></i>
+                               <i className="fas fa-star"></i>
+                               <i className="fas fa-star"></i>
+                               <i className="fas fa-star-half-alt"></i>
+                           </div>
+                           <h3>{item.name}</h3>
+                           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, accusantium.</p>
+                           <Link to={`collections/${item.slug}`} class="btn">Voir</Link>
+                       </div>
+                   </div>
                 )
             })
         }else{
@@ -59,22 +65,13 @@ const CollectionVeiwCategory = () =>{
     }
 
     return (
-        <>
-           
-            <div>
-                <div className="py-3 bg-warning">
-                    <div className="container">
-                        <h5>View Category</h5>
-                    </div>
-                </div>
-                
-                {
-                  listcategory
-                }
-                
+        <section className="menu" style={{marginTop: "65px"}} id="menu">
+            <h3 className="heading">Catégories</h3>
+
+            <div className="box-container">
+                {listcategory}
             </div>
-            <Link to="/admin/dashboard" className="btn btn-primary">Admin</Link>
-        </>
+        </section>
     );
 }
 

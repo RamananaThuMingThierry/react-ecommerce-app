@@ -13,12 +13,14 @@ import CollectionViewProduct from "../../components/frontend/collection/Collecti
 import CollectionProductDetails from "../../components/frontend/collection/CollectionProductDetails";
 import Cart from "../../components/frontend/Cart";
 import Checkout from "../../components/frontend/Checkout";
+import Footer from "./Footer";
+import "./css/styles.css";
+
 class FrontendLayout extends Component{
     render(){
         return (
             <>
                 <Navbar/>
-                <div className="container">
                     <Switch>
                         <Route  exact path="/" name="Home" component={Home}/>
                         <Route  exact path="/about" name="About" component={About}/>
@@ -37,7 +39,7 @@ class FrontendLayout extends Component{
                         { localStorage.getItem('auth_token') ? <Redirect to="/" /> : <Register/>}
                         </Route>
                     </Switch>
-                </div>
+                <Footer/>
             </>
         );
     }

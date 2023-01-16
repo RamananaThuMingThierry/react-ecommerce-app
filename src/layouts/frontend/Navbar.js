@@ -25,51 +25,37 @@ const Navbar = () =>{
     if(!localStorage.getItem('auth_token')){
         AuthButtons = (
             <Fragment>
-                <li className="nav-item">
-                    <Link to="/login" className="nav-link">Connexion</Link>
-                </li>
-                <li className="nav-item">
+                    <Link to="/login" className="nav-link">Connexion</Link>    
                     <Link to="/register" className="nav-link">S'inscrire</Link>
-                </li>
             </Fragment>
         );
     }else{
         AuthButtons = (
-            <li className="nav-item">
-                <button to="/logout" onClick={LogoutSubmit} className="nav-link btn-sm btn-danger text-white">Déconnexion</button>
-            </li>
+                <Link to="/logout" onClick={LogoutSubmit} className="nav-link btn-sm btn-danger text-white">Déconnexion</Link>
         );
     }
 
     return(
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container">
-                <Link className="navbar-brand" to="#">E-commerce</Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-targer="#opennavbar">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="opennavbar">
-                    <ul className="navbar-nav ml-auto">
-                    <li className="nav-item active">
-                            <Link to="/" className="nav-link active">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/collection" className="nav-link">Collection</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/about" className="nav-link">About</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/contact" className="nav-link">Contact</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/cart" className="nav-link">Cart</Link>
-                        </li>
-                        {AuthButtons}
-                    </ul>
-                </div>
-            </div> 
-        </nav>
+        <header>
+            <Link to="/" class="logo"><i class="fas fa-utensils"></i>E-commerce</Link>
+            
+            <nav class="navbar">
+                <Link to="/" class="active">Accueil</Link>
+                <Link to="/collection">Collection</Link>
+                <Link to="/about">Apropos</Link>
+                <Link to="/contact">Contact</Link>
+                {AuthButtons}
+            </nav>
+            
+            <div class="icons">
+                <i class="fas fa-bars" id="menu-bars"></i>
+                <i class="fas fa-search" id="search-icon"></i>
+                <a href="#" class="fas fa-heart"></a>
+                <Link to="/cart" class="fas fa-shopping-cart"></Link>
+            </div>
+            
+        </header>
     );
 }
 export default Navbar;
+

@@ -70,17 +70,13 @@ const CollectionViewProduct = (props) =>{
     }
 
     return (
-        <>          
-            <div>
-                <div className="py-3 bg-warning">
-                    <div className="container">
-                        <h5>Category / {categorys.name}</h5>
-                    </div>
-                </div>
+        <section className="menu" style={{marginTop: "65px"}} id="menu">
+            <h3 className="heading">Produits</h3>
+
+            <div className="box-container">
                 {listeproduct}
             </div>
-            <Link to="/admin/dashboard" className="btn btn-primary">Admin</Link>
-        </>
+        </section>       
     );
 }
 
